@@ -18,6 +18,9 @@
 package org.apache.dubbo.samples.client;
 
 
+import com.google.common.collect.Maps;
+import java.util.Map;
+import org.apache.dubbo.common.constants.CommonConstants;
 import org.apache.dubbo.config.ApplicationConfig;
 import org.apache.dubbo.config.ReferenceConfig;
 import org.apache.dubbo.config.RegistryConfig;
@@ -31,7 +34,12 @@ public class Application {
         reference.setApplication(new ApplicationConfig("first-dubbo-consumer"));
         reference.setRegistry(new RegistryConfig("zookeeper://" + zookeeperHost + ":2181"));
         reference.setInterface(GreetingsService.class);
+        Map<String, String> params = Maps.newHashMap();
+        reference.setParameters(params);
+        params.put(CommonConstants.INVOKER_LISTENER_KEY, "gcb");
+
         GreetingsService service = reference.get();
+        System.out.println(service);
         String message = service.sayHi("dubbo");
         System.out.println(message);
     }
