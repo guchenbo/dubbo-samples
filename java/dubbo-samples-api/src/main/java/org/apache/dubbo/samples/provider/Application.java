@@ -18,12 +18,15 @@
 package org.apache.dubbo.samples.provider;
 
 
+import com.google.common.collect.Maps;
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import org.apache.dubbo.common.constants.CommonConstants;
 import org.apache.dubbo.config.ApplicationConfig;
+import org.apache.dubbo.config.ProtocolConfig;
 import org.apache.dubbo.config.RegistryConfig;
 import org.apache.dubbo.config.ServiceConfig;
 import org.apache.dubbo.samples.api.GreetingsService;
-
-import java.util.concurrent.CountDownLatch;
 
 public class Application {
     private static String zookeeperHost = System.getProperty("zookeeper.address", "127.0.0.1");
@@ -34,6 +37,16 @@ public class Application {
         service.setRegistry(new RegistryConfig("zookeeper://" + zookeeperHost + ":2181"));
         service.setInterface(GreetingsService.class);
         service.setRef(new GreetingsServiceImpl());
+        Map<String, String> params = Maps.newHashMap();
+        service.setParameters(params);
+        ProtocolConfig protocolConfig = new ProtocolConfig();
+        protocolConfig.setName("dubbo");
+        protocolConfig.setPort(-1);
+        service.setProtocol(protocolConfig);
+
+//        service.setProtocol(new ProtocolConfig("d", -1));
+        params.put(CommonConstants.INVOKER_LISTENER_KEY, "gcb");
+
         service.export();
 
         System.out.println("dubbo service started");
