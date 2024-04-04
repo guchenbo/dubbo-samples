@@ -55,7 +55,7 @@ public class ZookeeperNotificationMock {
     public static void initProviders() throws Exception {
         nodePathes = new String[1000];
         for (int i = 0; i < 1000; i++) {
-            String providerUrl = "dubbo://30.5.125.28:20880/org.apache.dubbo.samples.basic.api.DemoService?anyhost=true&application=demo-provider&bind.ip=30.5.125.122&bind.port=20880&deprecated=false&dubbo=2.0.2&dynamic=true&generic=false&interface=org.apache.dubbo.samples.basic.api.DemoService&methods=testVoid,sayHello&pid=19175&release=2.7.5-SNAPSHOT&side=provider" +
+            String providerUrl = "dubbo://30.5.125.28:20880/org.apache.dubbo.samples.basic.api.DemoService?anyhost=true&application=demo-provider&bind.ip=30.5.125.122&bind.port=20880&deprecated=false&dubbo=2.0.2&dynamic=true&generic=false&interface=org.apache.dubbo.samples.basic.api.DemoService&methods=testVoid,sayHello&pid=19175&release=2.7.6-SNAPSHOT&side=provider" +
                     "timestamp=" + System.currentTimeMillis();
             try {
                 String path = ROOT_PATH + URLEncoder.encode(providerUrl, "utf-8");
